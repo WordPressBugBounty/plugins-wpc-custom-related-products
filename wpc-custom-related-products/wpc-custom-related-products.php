@@ -3,21 +3,23 @@
 Plugin Name: WPC Custom Related Products for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Custom Related Products allows you to choose custom related products for each product.
-Version: 3.1.5
+Version: 3.1.6
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-custom-related-products
 Domain Path: /languages/
 Requires Plugins: woocommerce
 Requires at least: 4.0
-Tested up to: 6.6
+Tested up to: 6.7
 WC requires at least: 3.0
-WC tested up to: 9.2
+WC tested up to: 9.4
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOCR_VERSION' ) && define( 'WOOCR_VERSION', '3.1.5' );
+! defined( 'WOOCR_VERSION' ) && define( 'WOOCR_VERSION', '3.1.6' );
 ! defined( 'WOOCR_LITE' ) && define( 'WOOCR_LITE', __FILE__ );
 ! defined( 'WOOCR_FILE' ) && define( 'WOOCR_FILE', __FILE__ );
 ! defined( 'WOOCR_URI' ) && define( 'WOOCR_URI', plugin_dir_url( __FILE__ ) );
@@ -36,9 +38,6 @@ if ( ! function_exists( 'woocr_init' ) ) {
 	add_action( 'plugins_loaded', 'woocr_init', 11 );
 
 	function woocr_init() {
-		// load text-domain
-		load_plugin_textdomain( 'wpc-custom-related-products', false, basename( __DIR__ ) . '/languages/' );
-
 		if ( ! function_exists( 'WC' ) || ! version_compare( WC()->version, '3.0', '>=' ) ) {
 			add_action( 'admin_notices', 'woocr_notice_wc' );
 
@@ -62,6 +61,9 @@ if ( ! function_exists( 'woocr_init' ) ) {
 				function __construct() {
 					self::$settings = (array) get_option( 'woocr_settings', [] );
 					self::$rules    = (array) get_option( 'woocr_rules', [] );
+
+					// Init
+					add_action( 'init', [ $this, 'init' ] );
 
 					// Settings
 					add_action( 'admin_init', [ $this, 'register_settings' ] );
@@ -106,6 +108,11 @@ if ( ! function_exists( 'woocr_init' ) ) {
 					if ( self::get_setting( 'search_sentence', 'no' ) === 'yes' ) {
 						add_action( 'pre_get_posts', [ $this, 'search_sentence' ], 99 );
 					}
+				}
+
+				function init() {
+					// load text-domain
+					load_plugin_textdomain( 'wpc-custom-related-products', false, basename( WOOCR_DIR ) . '/languages/' );
 				}
 
 				public static function get_settings() {
