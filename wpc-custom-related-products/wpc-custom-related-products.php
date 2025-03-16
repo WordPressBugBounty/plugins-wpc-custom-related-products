@@ -3,7 +3,7 @@
 Plugin Name: WPC Custom Related Products for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Custom Related Products allows you to choose custom related products for each product.
-Version: 3.1.6
+Version: 3.1.7
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-custom-related-products
@@ -12,14 +12,14 @@ Requires Plugins: woocommerce
 Requires at least: 4.0
 Tested up to: 6.7
 WC requires at least: 3.0
-WC tested up to: 9.4
+WC tested up to: 9.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOCR_VERSION' ) && define( 'WOOCR_VERSION', '3.1.6' );
+! defined( 'WOOCR_VERSION' ) && define( 'WOOCR_VERSION', '3.1.7' );
 ! defined( 'WOOCR_LITE' ) && define( 'WOOCR_LITE', __FILE__ );
 ! defined( 'WOOCR_FILE' ) && define( 'WOOCR_FILE', __FILE__ );
 ! defined( 'WOOCR_URI' ) && define( 'WOOCR_URI', plugin_dir_url( __FILE__ ) );
@@ -151,9 +151,14 @@ if ( ! function_exists( 'woocr_init' ) ) {
                             <p>
 								<?php printf( /* translators: stars */ esc_html__( 'Thank you for using our plugin! If you are satisfied, please reward it a full five-star %s rating.', 'wpc-custom-related-products' ), '<span style="color:#ffb900">&#9733;&#9733;&#9733;&#9733;&#9733;</span>' ); ?>
                                 <br/>
-                                <a href="<?php echo esc_url( WOOCR_REVIEWS ); ?>" target="_blank"><?php esc_html_e( 'Reviews', 'wpc-custom-related-products' ); ?></a> |
-                                <a href="<?php echo esc_url( WOOCR_CHANGELOG ); ?>" target="_blank"><?php esc_html_e( 'Changelog', 'wpc-custom-related-products' ); ?></a> |
-                                <a href="<?php echo esc_url( WOOCR_DISCUSSION ); ?>" target="_blank"><?php esc_html_e( 'Discussion', 'wpc-custom-related-products' ); ?></a>
+                                <a href="<?php echo esc_url( WOOCR_REVIEWS ); ?>"
+                                   target="_blank"><?php esc_html_e( 'Reviews', 'wpc-custom-related-products' ); ?></a>
+                                |
+                                <a href="<?php echo esc_url( WOOCR_CHANGELOG ); ?>"
+                                   target="_blank"><?php esc_html_e( 'Changelog', 'wpc-custom-related-products' ); ?></a>
+                                |
+                                <a href="<?php echo esc_url( WOOCR_DISCUSSION ); ?>"
+                                   target="_blank"><?php esc_html_e( 'Discussion', 'wpc-custom-related-products' ); ?></a>
                             </p>
                         </div>
 						<?php if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] ) { ?>
@@ -163,19 +168,25 @@ if ( ! function_exists( 'woocr_init' ) ) {
 						<?php } ?>
                         <div class="wpclever_settings_page_nav">
                             <h2 class="nav-tab-wrapper">
-                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-woocr&tab=how' ) ); ?>" class="<?php echo esc_attr( $active_tab === 'how' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
+                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-woocr&tab=how' ) ); ?>"
+                                   class="<?php echo esc_attr( $active_tab === 'how' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
 									<?php esc_html_e( 'How to use?', 'wpc-custom-related-products' ); ?>
                                 </a>
-                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-woocr&tab=settings' ) ); ?>" class="<?php echo esc_attr( $active_tab === 'settings' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
+                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-woocr&tab=settings' ) ); ?>"
+                                   class="<?php echo esc_attr( $active_tab === 'settings' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
 									<?php esc_html_e( 'Settings', 'wpc-custom-related-products' ); ?>
                                 </a>
-                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-woocr&tab=smart' ) ); ?>" class="<?php echo esc_attr( $active_tab === 'smart' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
+                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-woocr&tab=smart' ) ); ?>"
+                                   class="<?php echo esc_attr( $active_tab === 'smart' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>">
 									<?php esc_html_e( 'Smart Related', 'wpc-custom-related-products' ); ?>
                                 </a>
-                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-woocr&tab=premium' ) ); ?>" class="<?php echo esc_attr( $active_tab === 'premium' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>" style="color: #c9356e">
+                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-woocr&tab=premium' ) ); ?>"
+                                   class="<?php echo esc_attr( $active_tab === 'premium' ? 'nav-tab nav-tab-active' : 'nav-tab' ); ?>"
+                                   style="color: #c9356e">
 									<?php esc_html_e( 'Premium Version', 'wpc-custom-related-products' ); ?>
                                 </a>
-                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-kit' ) ); ?>" class="nav-tab">
+                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-kit' ) ); ?>"
+                                   class="nav-tab">
 									<?php esc_html_e( 'Essential Kit', 'wpc-custom-related-products' ); ?>
                                 </a>
                             </h2>
@@ -187,7 +198,8 @@ if ( ! function_exists( 'woocr_init' ) ) {
 										<?php esc_html_e( 'When creating/editing the product, please choose "Related Product" tab then you can search and add custom related products.', 'wpc-custom-related-products' ); ?>
                                     </p>
                                     <p>
-                                        <img src="<?php echo esc_url( WOOCR_URI . 'assets/images/how-01.jpg' ); ?>" alt=""/>
+                                        <img src="<?php echo esc_url( WOOCR_URI . 'assets/images/how-01.jpg' ); ?>"
+                                             alt=""/>
                                     </p>
                                 </div>
 								<?php
@@ -228,7 +240,8 @@ if ( ! function_exists( 'woocr_init' ) ) {
                                                         <option value="up_cross_sells" <?php selected( $default, 'up_cross_sells' ); ?>><?php esc_html_e( 'Upsells & Cross-sells', 'wpc-custom-related-products' ); ?></option>
                                                         <option value="none" <?php selected( $default, 'none' ); ?>><?php esc_html_e( 'None', 'wpc-custom-related-products' ); ?></option>
                                                     </select> </label> <span class="description">If you choose "Smart Related", please configure the rules on Smart Related tab. If you choose Upsells/Cross-sells, you also can use
-													<a href="https://wordpress.org/plugins/wpc-smart-linked-products/" target="_blank">WPC Smart Linked Products</a> to configure upsells/cross-sells products in bulk.
+													<a href="https://wordpress.org/plugins/wpc-smart-linked-products/"
+                                                       target="_blank">WPC Smart Linked Products</a> to configure upsells/cross-sells products in bulk.
 												</span>
                                             </td>
                                         </tr>
@@ -236,7 +249,9 @@ if ( ! function_exists( 'woocr_init' ) ) {
                                             <th><?php esc_html_e( 'Default products limit', 'wpc-custom-related-products' ); ?></th>
                                             <td>
                                                 <label>
-                                                    <input type="number" class="small-text" name="woocr_settings[default_limit]" value="<?php echo esc_attr( self::get_setting( 'default_limit', 5 ) ); ?>"/>
+                                                    <input type="number" class="small-text"
+                                                           name="woocr_settings[default_limit]"
+                                                           value="<?php echo esc_attr( self::get_setting( 'default_limit', 5 ) ); ?>"/>
                                                 </label>
                                             </td>
                                         </tr>
@@ -249,7 +264,8 @@ if ( ! function_exists( 'woocr_init' ) ) {
                                             <th><?php esc_html_e( 'Search limit', 'wpc-custom-related-products' ); ?></th>
                                             <td>
                                                 <label>
-                                                    <input name="woocr_settings[search_limit]" type="number" min="1" max="500" value="<?php echo esc_attr( $search_limit ); ?>"/>
+                                                    <input name="woocr_settings[search_limit]" type="number" min="1"
+                                                           max="500" value="<?php echo esc_attr( $search_limit ); ?>"/>
                                                 </label>
                                             </td>
                                         </tr>
@@ -303,7 +319,8 @@ if ( ! function_exists( 'woocr_init' ) ) {
 							} elseif ( $active_tab === 'premium' ) { ?>
                                 <div class="wpclever_settings_page_content_text">
                                     <p>Get the Premium Version just $29!
-                                        <a href="https://wpclever.net/downloads/custom-related-products?utm_source=pro&utm_medium=woocr&utm_campaign=wporg" target="_blank">https://wpclever.net/downloads/custom-related-products</a>
+                                        <a href="https://wpclever.net/downloads/custom-related-products?utm_source=pro&utm_medium=woocr&utm_campaign=wporg"
+                                           target="_blank">https://wpclever.net/downloads/custom-related-products</a>
                                     </p>
                                     <p><strong>Extra features for Premium Version:</strong></p>
                                     <ul style="margin-bottom: 0">
@@ -319,13 +336,17 @@ if ( ! function_exists( 'woocr_init' ) ) {
                             </div>
                             <div class="wpclever_settings_page_suggestion_content">
                                 <div>
-                                    To display custom engaging real-time messages on any wished positions, please install
-                                    <a href="https://wordpress.org/plugins/wpc-smart-messages/" target="_blank">WPC Smart Messages</a> plugin. It's free!
+                                    To display custom engaging real-time messages on any wished positions, please
+                                    install
+                                    <a href="https://wordpress.org/plugins/wpc-smart-messages/" target="_blank">WPC
+                                        Smart Messages</a> plugin. It's free!
                                 </div>
                                 <div>
                                     Wanna save your precious time working on variations? Try our brand-new free plugin
-                                    <a href="https://wordpress.org/plugins/wpc-variation-bulk-editor/" target="_blank">WPC Variation Bulk Editor</a> and
-                                    <a href="https://wordpress.org/plugins/wpc-variation-duplicator/" target="_blank">WPC Variation Duplicator</a>.
+                                    <a href="https://wordpress.org/plugins/wpc-variation-bulk-editor/" target="_blank">WPC
+                                        Variation Bulk Editor</a> and
+                                    <a href="https://wordpress.org/plugins/wpc-variation-duplicator/" target="_blank">WPC
+                                        Variation Duplicator</a>.
                                 </div>
                             </div>
                         </div>
@@ -357,7 +378,8 @@ if ( ! function_exists( 'woocr_init' ) ) {
                                     </div>
                                     <div class="woocr_add_rule">
                                         <div>
-                                            <a href="#" class="woocr_new_rule button" data-name="<?php echo esc_attr( $name ); ?>">
+                                            <a href="#" class="woocr_new_rule button"
+                                               data-name="<?php echo esc_attr( $name ); ?>">
 												<?php esc_html_e( '+ Add rule', 'wpc-custom-related-products' ); ?>
                                             </a> <a href="#" class="woocr_expand_all">
 												<?php esc_html_e( 'Expand All', 'wpc-custom-related-products' ); ?>
@@ -395,12 +417,15 @@ if ( ! function_exists( 'woocr_init' ) ) {
 					$get_orderby       = $rule['get_orderby'] ?? 'default';
 					$get_order         = $rule['get_order'] ?? 'default';
 					?>
-                    <div class="<?php echo esc_attr( $active ? 'woocr_rule active' : 'woocr_rule' ); ?>" data-key="<?php echo esc_attr( $key ); ?>">
+                    <div class="<?php echo esc_attr( $active ? 'woocr_rule active' : 'woocr_rule' ); ?>"
+                         data-key="<?php echo esc_attr( $key ); ?>">
                         <div class="woocr_rule_heading">
                             <span class="woocr_rule_move"></span>
                             <span class="woocr_rule_label"><?php echo esc_html( $apply . ' / ' . $get ); ?></span>
-                            <a href="#" class="woocr_rule_duplicate" data-name="<?php echo esc_attr( $name ); ?>"><?php esc_html_e( 'duplicate', 'wpc-custom-related-products' ); ?></a>
-                            <a href="#" class="woocr_rule_remove"><?php esc_html_e( 'remove', 'wpc-custom-related-products' ); ?></a>
+                            <a href="#" class="woocr_rule_duplicate"
+                               data-name="<?php echo esc_attr( $name ); ?>"><?php esc_html_e( 'duplicate', 'wpc-custom-related-products' ); ?></a>
+                            <a href="#"
+                               class="woocr_rule_remove"><?php esc_html_e( 'remove', 'wpc-custom-related-products' ); ?></a>
                         </div>
                         <div class="woocr_rule_content">
                             <div class="woocr_tr">
@@ -426,10 +451,13 @@ if ( ! function_exists( 'woocr_init' ) ) {
                         <div class="woocr_th"><?php esc_html_e( 'Source', 'wpc-custom-related-products' ); ?></div>
                         <div class="woocr_td woocr_rule_td">
                             <label>
-                                <select class="woocr_source_selector woocr_source_selector_<?php echo esc_attr( $type ); ?>" data-type="<?php echo esc_attr( $type ); ?>" name="<?php echo esc_attr( $name ); ?>[<?php echo esc_attr( $key ); ?>][<?php echo esc_attr( $type ); ?>]">
+                                <select class="woocr_source_selector woocr_source_selector_<?php echo esc_attr( $type ); ?>"
+                                        data-type="<?php echo esc_attr( $type ); ?>"
+                                        name="<?php echo esc_attr( $name ); ?>[<?php echo esc_attr( $key ); ?>][<?php echo esc_attr( $type ); ?>]">
                                     <option value="all"><?php esc_html_e( 'All products', 'wpc-custom-related-products' ); ?></option>
                                     <option value="products" <?php selected( $apply, 'products' ); ?>><?php esc_html_e( 'Products', 'wpc-custom-related-products' ); ?></option>
-                                    <option value="combination" <?php selected( $apply, 'combination' ); ?> disabled><?php esc_html_e( 'Combined (Premium)', 'wpc-custom-related-products' ); ?></option>
+                                    <option value="combination" <?php selected( $apply, 'combination' ); ?>
+                                            disabled><?php esc_html_e( 'Combined (Premium)', 'wpc-custom-related-products' ); ?></option>
 									<?php
 									$taxonomies = get_object_taxonomies( 'product', 'objects' );
 
@@ -441,7 +469,9 @@ if ( ! function_exists( 'woocr_init' ) ) {
 							<?php if ( $type === 'get' ) { ?>
                                 <span class="show_get hide_if_get_products">
 										<span><?php esc_html_e( 'Limit', 'wpc-custom-related-products' ); ?> <label>
-<input type="number" min="1" max="50" name="<?php echo esc_attr( $name ); ?>[<?php echo esc_attr( $key ); ?>][get_limit]" value="<?php echo esc_attr( $get_limit ); ?>"/>
+<input type="number" min="1" max="50"
+       name="<?php echo esc_attr( $name ); ?>[<?php echo esc_attr( $key ); ?>][get_limit]"
+       value="<?php echo esc_attr( $get_limit ); ?>"/>
 </label></span>
 										<span>
 										<?php esc_html_e( 'Order by', 'wpc-custom-related-products' ); ?> <label>
@@ -473,7 +503,11 @@ if ( ! function_exists( 'woocr_init' ) ) {
                         <div class="woocr_th"><?php esc_html_e( 'Products', 'wpc-custom-related-products' ); ?></div>
                         <div class="woocr_td woocr_rule_td">
                             <label>
-                                <select class="wc-product-search woocr-product-search" name="<?php echo esc_attr( $name ); ?>[<?php echo esc_attr( $key ); ?>][<?php echo esc_attr( $type . '_products' ); ?>][]" multiple="multiple" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'wpc-custom-related-products' ); ?>" data-action="woocommerce_json_search_products_and_variations">
+                                <select class="wc-product-search woocr-product-search"
+                                        name="<?php echo esc_attr( $name ); ?>[<?php echo esc_attr( $key ); ?>][<?php echo esc_attr( $type . '_products' ); ?>][]"
+                                        multiple="multiple"
+                                        data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'wpc-custom-related-products' ); ?>"
+                                        data-action="woocommerce_json_search_products_and_variations">
 									<?php
 									if ( ! empty( $products ) ) {
 										foreach ( $products as $_product_id ) {
@@ -490,7 +524,10 @@ if ( ! function_exists( 'woocr_init' ) ) {
                         <div class="woocr_th woocr_<?php echo esc_attr( $type ); ?>_text"><?php esc_html_e( 'Terms', 'wpc-custom-related-products' ); ?></div>
                         <div class="woocr_td woocr_rule_td">
                             <label>
-                                <select class="woocr_terms" data-type="<?php echo esc_attr( $type ); ?>" name="<?php echo esc_attr( $name ); ?>[<?php echo esc_attr( $key ); ?>][<?php echo esc_attr( $type . '_terms' ); ?>][]" multiple="multiple" data-<?php echo esc_attr( $apply ); ?>="<?php echo esc_attr( implode( ',', $terms ) ); ?>">
+                                <select class="woocr_terms" data-type="<?php echo esc_attr( $type ); ?>"
+                                        name="<?php echo esc_attr( $name ); ?>[<?php echo esc_attr( $key ); ?>][<?php echo esc_attr( $type . '_terms' ); ?>][]"
+                                        multiple="multiple"
+                                        data-<?php echo esc_attr( $apply ); ?>="<?php echo esc_attr( implode( ',', $terms ) ); ?>">
 									<?php
 									if ( ! empty( $terms ) ) {
 										foreach ( $terms as $at ) {
@@ -707,12 +744,16 @@ if ( ! function_exists( 'woocr_init' ) ) {
                     <div id='woocr_settings' class='panel woocommerce_options_panel woocr_table'>
                         <table>
                             <tr>
-                                <th><?php esc_html_e( 'Search', 'wpc-custom-related-products' ); ?> (<a href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-woocr&tab=settings#search' ) ); ?>" target="_blank"><?php esc_html_e( 'settings', 'wpc-custom-related-products' ); ?></a>)
+                                <th><?php esc_html_e( 'Search', 'wpc-custom-related-products' ); ?> (<a
+                                            href="<?php echo esc_url( admin_url( 'admin.php?page=wpclever-woocr&tab=settings#search' ) ); ?>"
+                                            target="_blank"><?php esc_html_e( 'settings', 'wpc-custom-related-products' ); ?></a>)
                                 </th>
                                 <td>
                                     <div class="w100">
-                                        <span class="loading" id="woocr_loading"><?php esc_html_e( 'searching...', 'wpc-custom-related-products' ); ?></span>
-                                        <label for="woocr_keyword"></label><input type="search" id="woocr_keyword" placeholder="<?php esc_attr_e( 'Type any keyword to search', 'wpc-custom-related-products' ); ?>"/>
+                                        <span class="loading"
+                                              id="woocr_loading"><?php esc_html_e( 'searching...', 'wpc-custom-related-products' ); ?></span>
+                                        <label for="woocr_keyword"></label><input type="search" id="woocr_keyword"
+                                                                                  placeholder="<?php esc_attr_e( 'Type any keyword to search', 'wpc-custom-related-products' ); ?>"/>
                                         <div id="woocr_results" class="woocr_results"></div>
                                     </div>
                                 </td>
