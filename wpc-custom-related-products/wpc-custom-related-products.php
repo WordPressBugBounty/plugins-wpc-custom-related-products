@@ -3,7 +3,7 @@
 Plugin Name: WPC Custom Related Products for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Custom Related Products allows you to choose custom related products for each product.
-Version: 3.1.7
+Version: 3.1.8
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-custom-related-products
@@ -19,7 +19,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOCR_VERSION' ) && define( 'WOOCR_VERSION', '3.1.7' );
+! defined( 'WOOCR_VERSION' ) && define( 'WOOCR_VERSION', '3.1.8' );
 ! defined( 'WOOCR_LITE' ) && define( 'WOOCR_LITE', __FILE__ );
 ! defined( 'WOOCR_FILE' ) && define( 'WOOCR_FILE', __FILE__ );
 ! defined( 'WOOCR_URI' ) && define( 'WOOCR_URI', plugin_dir_url( __FILE__ ) );
@@ -93,7 +93,7 @@ if ( ! function_exists( 'woocr_init' ) ) {
 
 					// Exclude Unpurchasable
 					if ( self::get_setting( 'exclude_unpurchasable', 'no' ) === 'yes' ) {
-						add_filter( 'woocr_related_products', [ $this, 'exclude_unpurchasable' ] );
+						add_filter( 'woocr_related_products_before_limit', [ $this, 'exclude_unpurchasable' ] );
 					}
 
 					// Search filters
@@ -875,6 +875,8 @@ if ( ! function_exists( 'woocr_init' ) ) {
 									}
 								}
 						}
+
+						$_ids = apply_filters( 'woocr_related_products_before_limit', $_ids, $product_id );
 
 						if ( $default_limit && ! empty( $_ids ) ) {
 							$ids = array_slice( $_ids, 0, $default_limit );
