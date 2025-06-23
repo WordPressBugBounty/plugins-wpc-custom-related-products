@@ -3,23 +3,23 @@
 Plugin Name: WPC Custom Related Products for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Custom Related Products allows you to choose custom related products for each product.
-Version: 3.1.8
+Version: 3.1.9
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-custom-related-products
 Domain Path: /languages/
 Requires Plugins: woocommerce
 Requires at least: 4.0
-Tested up to: 6.7
+Tested up to: 6.8
 WC requires at least: 3.0
-WC tested up to: 9.7
+WC tested up to: 9.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOCR_VERSION' ) && define( 'WOOCR_VERSION', '3.1.8' );
+! defined( 'WOOCR_VERSION' ) && define( 'WOOCR_VERSION', '3.1.9' );
 ! defined( 'WOOCR_LITE' ) && define( 'WOOCR_LITE', __FILE__ );
 ! defined( 'WOOCR_FILE' ) && define( 'WOOCR_FILE', __FILE__ );
 ! defined( 'WOOCR_URI' ) && define( 'WOOCR_URI', plugin_dir_url( __FILE__ ) );
@@ -123,7 +123,7 @@ if ( ! function_exists( 'woocr_init' ) ) {
 					if ( ! empty( self::$settings ) && isset( self::$settings[ $name ] ) ) {
 						$setting = self::$settings[ $name ];
 					} else {
-						$setting = get_option( '_woocr_' . $name, $default );
+						$setting = get_option( 'woocr_' . $name, $default );
 					}
 
 					return apply_filters( 'woocr_get_setting', $setting, $name, $default );
@@ -146,21 +146,28 @@ if ( ! function_exists( 'woocr_init' ) ) {
 					$active_tab = sanitize_key( $_GET['tab'] ?? 'settings' );
 					?>
                     <div class="wpclever_settings_page wrap">
-                        <h1 class="wpclever_settings_page_title"><?php echo esc_html__( 'WPC Custom Related Products', 'wpc-custom-related-products' ) . ' ' . esc_html( WOOCR_VERSION ) . ' ' . ( defined( 'WOOCR_PREMIUM' ) ? '<span class="premium" style="display: none">' . esc_html__( 'Premium', 'wpc-custom-related-products' ) . '</span>' : '' ); ?></h1>
-                        <div class="wpclever_settings_page_desc about-text">
-                            <p>
-								<?php printf( /* translators: stars */ esc_html__( 'Thank you for using our plugin! If you are satisfied, please reward it a full five-star %s rating.', 'wpc-custom-related-products' ), '<span style="color:#ffb900">&#9733;&#9733;&#9733;&#9733;&#9733;</span>' ); ?>
-                                <br/>
-                                <a href="<?php echo esc_url( WOOCR_REVIEWS ); ?>"
-                                   target="_blank"><?php esc_html_e( 'Reviews', 'wpc-custom-related-products' ); ?></a>
-                                |
-                                <a href="<?php echo esc_url( WOOCR_CHANGELOG ); ?>"
-                                   target="_blank"><?php esc_html_e( 'Changelog', 'wpc-custom-related-products' ); ?></a>
-                                |
-                                <a href="<?php echo esc_url( WOOCR_DISCUSSION ); ?>"
-                                   target="_blank"><?php esc_html_e( 'Discussion', 'wpc-custom-related-products' ); ?></a>
-                            </p>
+                        <div class="wpclever_settings_page_header">
+                            <a class="wpclever_settings_page_header_logo" href="https://wpclever.net/"
+                               target="_blank" title="Visit wpclever.net"></a>
+                            <div class="wpclever_settings_page_header_text">
+                                <div class="wpclever_settings_page_title"><?php echo esc_html__( 'WPC Custom Related Products', 'wpc-custom-related-products' ) . ' ' . esc_html( WOOCR_VERSION ) . ' ' . ( defined( 'WOOCR_PREMIUM' ) ? '<span class="premium" style="display: none">' . esc_html__( 'Premium', 'wpc-custom-related-products' ) . '</span>' : '' ); ?></div>
+                                <div class="wpclever_settings_page_desc about-text">
+                                    <p>
+										<?php printf( /* translators: stars */ esc_html__( 'Thank you for using our plugin! If you are satisfied, please reward it a full five-star %s rating.', 'wpc-custom-related-products' ), '<span style="color:#ffb900">&#9733;&#9733;&#9733;&#9733;&#9733;</span>' ); ?>
+                                        <br/>
+                                        <a href="<?php echo esc_url( WOOCR_REVIEWS ); ?>"
+                                           target="_blank"><?php esc_html_e( 'Reviews', 'wpc-custom-related-products' ); ?></a>
+                                        |
+                                        <a href="<?php echo esc_url( WOOCR_CHANGELOG ); ?>"
+                                           target="_blank"><?php esc_html_e( 'Changelog', 'wpc-custom-related-products' ); ?></a>
+                                        |
+                                        <a href="<?php echo esc_url( WOOCR_DISCUSSION ); ?>"
+                                           target="_blank"><?php esc_html_e( 'Discussion', 'wpc-custom-related-products' ); ?></a>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
+                        <h2></h2>
 						<?php if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] ) { ?>
                             <div class="notice notice-success is-dismissible">
                                 <p><?php esc_html_e( 'Settings updated.', 'wpc-custom-related-products' ); ?></p>
