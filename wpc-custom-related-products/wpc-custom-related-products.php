@@ -3,7 +3,7 @@
 Plugin Name: WPC Custom Related Products for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Custom Related Products allows you to choose custom related products for each product.
-Version: 3.1.9
+Version: 3.2.0
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-custom-related-products
@@ -12,14 +12,14 @@ Requires Plugins: woocommerce
 Requires at least: 4.0
 Tested up to: 6.8
 WC requires at least: 3.0
-WC tested up to: 9.9
+WC tested up to: 10.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOCR_VERSION' ) && define( 'WOOCR_VERSION', '3.1.9' );
+! defined( 'WOOCR_VERSION' ) && define( 'WOOCR_VERSION', '3.2.0' );
 ! defined( 'WOOCR_LITE' ) && define( 'WOOCR_LITE', __FILE__ );
 ! defined( 'WOOCR_FILE' ) && define( 'WOOCR_FILE', __FILE__ );
 ! defined( 'WOOCR_URI' ) && define( 'WOOCR_URI', plugin_dir_url( __FILE__ ) );
@@ -462,7 +462,7 @@ if ( ! function_exists( 'woocr_init' ) ) {
                                         data-type="<?php echo esc_attr( $type ); ?>"
                                         name="<?php echo esc_attr( $name ); ?>[<?php echo esc_attr( $key ); ?>][<?php echo esc_attr( $type ); ?>]">
                                     <option value="all"><?php esc_html_e( 'All products', 'wpc-custom-related-products' ); ?></option>
-                                    <option value="products" <?php selected( $apply, 'products' ); ?>><?php esc_html_e( 'Products', 'wpc-custom-related-products' ); ?></option>
+                                    <option value="products" <?php selected( $apply, 'products' ); ?>><?php esc_html_e( 'Selected products', 'wpc-custom-related-products' ); ?></option>
                                     <option value="combination" <?php selected( $apply, 'combination' ); ?>
                                             disabled><?php esc_html_e( 'Combined (Premium)', 'wpc-custom-related-products' ); ?></option>
 									<?php
