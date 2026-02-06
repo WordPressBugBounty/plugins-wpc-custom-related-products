@@ -2,16 +2,16 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPC Custom Related Products for WooCommerce 3.2.0\n"
+"Project-Id-Version: WPC Custom Related Products for WooCommerce 3.2.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpc-custom-related-products\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-08-27T11:06:52+00:00\n"
+"POT-Creation-Date: 2025-12-23T09:01:10+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: wpc-custom-related-products\n"
 
 #. Plugin Name of the plugin
@@ -39,329 +39,337 @@ msgstr ""
 msgid "https://wpclever.net"
 msgstr ""
 
-#: wpc-custom-related-products.php:139
-#: wpc-custom-related-products.php:153
+#: wpc-custom-related-products.php:145
+#: wpc-custom-related-products.php:159
 msgid "WPC Custom Related Products"
 msgstr ""
 
-#: wpc-custom-related-products.php:139
-#: wpc-custom-related-products.php:719
+#: wpc-custom-related-products.php:145
+#: wpc-custom-related-products.php:733
 msgid "Related Products"
 msgstr ""
 
-#: wpc-custom-related-products.php:153
+#: wpc-custom-related-products.php:159
 msgid "Premium"
 msgstr ""
 
 #. translators: stars
-#: wpc-custom-related-products.php:156
+#: wpc-custom-related-products.php:162
+#, php-format
 msgid "Thank you for using our plugin! If you are satisfied, please reward it a full five-star %s rating."
 msgstr ""
 
-#: wpc-custom-related-products.php:159
+#: wpc-custom-related-products.php:165
 msgid "Reviews"
 msgstr ""
 
-#: wpc-custom-related-products.php:162
+#: wpc-custom-related-products.php:168
 msgid "Changelog"
 msgstr ""
 
-#: wpc-custom-related-products.php:165
+#: wpc-custom-related-products.php:171
 msgid "Discussion"
 msgstr ""
 
-#: wpc-custom-related-products.php:173
+#: wpc-custom-related-products.php:179
 msgid "Settings updated."
 msgstr ""
 
-#: wpc-custom-related-products.php:180
-#: wpc-custom-related-products.php:624
+#: wpc-custom-related-products.php:186
+#: wpc-custom-related-products.php:638
 msgid "How to use?"
 msgstr ""
 
-#: wpc-custom-related-products.php:184
-#: wpc-custom-related-products.php:625
+#: wpc-custom-related-products.php:190
+#: wpc-custom-related-products.php:639
 msgid "Settings"
 msgstr ""
 
-#: wpc-custom-related-products.php:188
-#: wpc-custom-related-products.php:244
-#: wpc-custom-related-products.php:626
+#: wpc-custom-related-products.php:194
+#: wpc-custom-related-products.php:250
+#: wpc-custom-related-products.php:640
 msgid "Smart Related"
 msgstr ""
 
-#: wpc-custom-related-products.php:193
-#: wpc-custom-related-products.php:627
+#: wpc-custom-related-products.php:199
+#: wpc-custom-related-products.php:641
 msgid "Premium Version"
 msgstr ""
 
-#: wpc-custom-related-products.php:197
+#: wpc-custom-related-products.php:203
 msgid "Essential Kit"
 msgstr ""
 
-#: wpc-custom-related-products.php:205
+#: wpc-custom-related-products.php:211
 msgid "When creating/editing the product, please choose \"Related Product\" tab then you can search and add custom related products."
 msgstr ""
 
-#: wpc-custom-related-products.php:226
+#: wpc-custom-related-products.php:232
 msgid "General"
 msgstr ""
 
-#: wpc-custom-related-products.php:230
+#: wpc-custom-related-products.php:236
 msgid "Exclude unpurchasable"
 msgstr ""
 
-#: wpc-custom-related-products.php:233
-#: wpc-custom-related-products.php:283
-#: wpc-custom-related-products.php:292
-#: wpc-custom-related-products.php:301
-#: wpc-custom-related-products.php:311
+#: wpc-custom-related-products.php:239
+#: wpc-custom-related-products.php:289
+#: wpc-custom-related-products.php:298
+#: wpc-custom-related-products.php:307
+#: wpc-custom-related-products.php:317
 msgid "Yes"
 msgstr ""
 
-#: wpc-custom-related-products.php:234
-#: wpc-custom-related-products.php:284
-#: wpc-custom-related-products.php:293
-#: wpc-custom-related-products.php:302
-#: wpc-custom-related-products.php:312
+#: wpc-custom-related-products.php:240
+#: wpc-custom-related-products.php:290
+#: wpc-custom-related-products.php:299
+#: wpc-custom-related-products.php:308
+#: wpc-custom-related-products.php:318
 msgid "No"
 msgstr ""
 
-#: wpc-custom-related-products.php:236
+#: wpc-custom-related-products.php:242
 msgid "Exclude unpurchasable products from related."
 msgstr ""
 
-#: wpc-custom-related-products.php:240
+#: wpc-custom-related-products.php:246
 msgid "Default products"
 msgstr ""
 
-#: wpc-custom-related-products.php:243
+#: wpc-custom-related-products.php:249
 msgid "Default Related"
 msgstr ""
 
-#: wpc-custom-related-products.php:245
+#: wpc-custom-related-products.php:251
 msgid "Upsells"
 msgstr ""
 
-#: wpc-custom-related-products.php:246
+#: wpc-custom-related-products.php:252
 msgid "Cross-sells"
 msgstr ""
 
-#: wpc-custom-related-products.php:247
+#: wpc-custom-related-products.php:253
 msgid "Upsells & Cross-sells"
 msgstr ""
 
-#: wpc-custom-related-products.php:248
-#: wpc-custom-related-products.php:487
+#: wpc-custom-related-products.php:254
+#: wpc-custom-related-products.php:501
 msgid "None"
 msgstr ""
 
-#: wpc-custom-related-products.php:256
+#: wpc-custom-related-products.php:262
 msgid "Default products limit"
 msgstr ""
 
-#: wpc-custom-related-products.php:267
-#: wpc-custom-related-products.php:754
+#: wpc-custom-related-products.php:273
+#: wpc-custom-related-products.php:768
 msgid "Search"
 msgstr ""
 
-#: wpc-custom-related-products.php:271
+#: wpc-custom-related-products.php:277
 msgid "Search limit"
 msgstr ""
 
-#: wpc-custom-related-products.php:280
+#: wpc-custom-related-products.php:286
 msgid "Search by SKU"
 msgstr ""
 
-#: wpc-custom-related-products.php:289
+#: wpc-custom-related-products.php:295
 msgid "Search by ID"
 msgstr ""
 
-#: wpc-custom-related-products.php:298
+#: wpc-custom-related-products.php:304
 msgid "Search exact"
 msgstr ""
 
-#: wpc-custom-related-products.php:304
+#: wpc-custom-related-products.php:310
 msgid "Match whole product title or content?"
 msgstr ""
 
-#: wpc-custom-related-products.php:308
+#: wpc-custom-related-products.php:314
 msgid "Search sentence"
 msgstr ""
 
-#: wpc-custom-related-products.php:314
+#: wpc-custom-related-products.php:320
 msgid "Do a phrase search?"
 msgstr ""
 
-#: wpc-custom-related-products.php:370
+#: wpc-custom-related-products.php:329
+#: wpc-custom-related-products.php:416
+msgid "import / export"
+msgstr ""
+
+#: wpc-custom-related-products.php:380
 msgid "Our plugin checks rules from the top down the list. When there are products that satisfy more than 1 rule, the first rule on top will be prioritized. Please make sure you put the rules in the order of the most to the least prioritized."
 msgstr ""
 
-#: wpc-custom-related-products.php:390
+#: wpc-custom-related-products.php:400
 msgid "+ Add rule"
 msgstr ""
 
-#: wpc-custom-related-products.php:392
+#: wpc-custom-related-products.php:402
 msgid "Expand All"
 msgstr ""
 
-#: wpc-custom-related-products.php:394
+#: wpc-custom-related-products.php:404
 msgid "Collapse All"
 msgstr ""
 
-#: wpc-custom-related-products.php:433
+#: wpc-custom-related-products.php:447
 msgid "duplicate"
 msgstr ""
 
-#: wpc-custom-related-products.php:435
+#: wpc-custom-related-products.php:449
 msgid "remove"
 msgstr ""
 
-#: wpc-custom-related-products.php:440
+#: wpc-custom-related-products.php:454
 msgid "Add linked products to which?"
 msgstr ""
 
-#: wpc-custom-related-products.php:446
+#: wpc-custom-related-products.php:460
 msgid "Define applicable linked products:"
 msgstr ""
 
-#: wpc-custom-related-products.php:458
+#: wpc-custom-related-products.php:472
 msgid "Source"
 msgstr ""
 
-#: wpc-custom-related-products.php:464
+#: wpc-custom-related-products.php:478
 msgid "All products"
 msgstr ""
 
-#: wpc-custom-related-products.php:465
+#: wpc-custom-related-products.php:479
 msgid "Selected products"
 msgstr ""
 
-#: wpc-custom-related-products.php:467
+#: wpc-custom-related-products.php:481
 msgid "Combined (Premium)"
 msgstr ""
 
-#: wpc-custom-related-products.php:478
+#: wpc-custom-related-products.php:492
 msgid "Limit"
 msgstr ""
 
-#: wpc-custom-related-products.php:484
-#: wpc-custom-related-products.php:796
+#: wpc-custom-related-products.php:498
+#: wpc-custom-related-products.php:810
 msgid "Order by"
 msgstr ""
 
-#: wpc-custom-related-products.php:486
 #: wpc-custom-related-products.php:500
+#: wpc-custom-related-products.php:514
 msgid "Default"
 msgstr ""
 
-#: wpc-custom-related-products.php:488
-#: wpc-custom-related-products.php:801
+#: wpc-custom-related-products.php:502
+#: wpc-custom-related-products.php:815
 msgid "ID"
 msgstr ""
 
-#: wpc-custom-related-products.php:489
+#: wpc-custom-related-products.php:503
 msgid "Name"
 msgstr ""
 
-#: wpc-custom-related-products.php:490
+#: wpc-custom-related-products.php:504
 msgid "Type"
 msgstr ""
 
-#: wpc-custom-related-products.php:491
+#: wpc-custom-related-products.php:505
 msgid "Rand"
 msgstr ""
 
-#: wpc-custom-related-products.php:492
-#: wpc-custom-related-products.php:802
+#: wpc-custom-related-products.php:506
+#: wpc-custom-related-products.php:816
 msgid "Date"
 msgstr ""
 
-#: wpc-custom-related-products.php:493
-#: wpc-custom-related-products.php:804
+#: wpc-custom-related-products.php:507
+#: wpc-custom-related-products.php:818
 msgid "Price"
 msgstr ""
 
-#: wpc-custom-related-products.php:494
-#: wpc-custom-related-products.php:803
+#: wpc-custom-related-products.php:508
+#: wpc-custom-related-products.php:817
 msgid "Modified"
 msgstr ""
 
-#: wpc-custom-related-products.php:498
-#: wpc-custom-related-products.php:809
+#: wpc-custom-related-products.php:512
+#: wpc-custom-related-products.php:823
 msgid "Order"
 msgstr ""
 
-#: wpc-custom-related-products.php:501
-#: wpc-custom-related-products.php:813
+#: wpc-custom-related-products.php:515
+#: wpc-custom-related-products.php:827
 msgid "DESC"
 msgstr ""
 
-#: wpc-custom-related-products.php:502
-#: wpc-custom-related-products.php:812
+#: wpc-custom-related-products.php:516
+#: wpc-custom-related-products.php:826
 msgid "ASC"
 msgstr ""
 
-#: wpc-custom-related-products.php:510
+#: wpc-custom-related-products.php:524
 msgid "Products"
 msgstr ""
 
-#: wpc-custom-related-products.php:516
+#: wpc-custom-related-products.php:530
 msgid "Search for a product&hellip;"
 msgstr ""
 
-#: wpc-custom-related-products.php:531
+#: wpc-custom-related-products.php:545
 msgid "Terms"
 msgstr ""
 
-#: wpc-custom-related-products.php:643
+#: wpc-custom-related-products.php:657
 msgid "Community support"
 msgstr ""
 
 #. translators: keyword
-#: wpc-custom-related-products.php:693
+#: wpc-custom-related-products.php:707
+#, php-format
 msgid "No results found for \"%s\""
 msgstr ""
 
-#: wpc-custom-related-products.php:703
+#: wpc-custom-related-products.php:717
 msgid "Add"
 msgstr ""
 
-#: wpc-custom-related-products.php:705
+#: wpc-custom-related-products.php:719
 msgid "Remove"
 msgstr ""
 
-#: wpc-custom-related-products.php:742
+#: wpc-custom-related-products.php:756
 msgid "Product wasn't returned."
 msgstr ""
 
-#: wpc-custom-related-products.php:756
+#: wpc-custom-related-products.php:770
 msgid "settings"
 msgstr ""
 
-#: wpc-custom-related-products.php:761
+#: wpc-custom-related-products.php:775
 msgid "searching..."
 msgstr ""
 
-#: wpc-custom-related-products.php:763
+#: wpc-custom-related-products.php:777
 msgid "Type any keyword to search"
 msgstr ""
 
-#: wpc-custom-related-products.php:769
-#: wpc-custom-related-products.php:799
+#: wpc-custom-related-products.php:783
+#: wpc-custom-related-products.php:813
 msgid "Selected"
 msgstr ""
 
 #. translators: default
-#: wpc-custom-related-products.php:775
+#: wpc-custom-related-products.php:789
+#, php-format
 msgid "* If you don't choose any products, it can show products from %s."
 msgstr ""
 
 #. translators: default
-#: wpc-custom-related-products.php:776
+#: wpc-custom-related-products.php:790
 msgid "Default Products"
 msgstr ""
 
-#: wpc-custom-related-products.php:800
+#: wpc-custom-related-products.php:814
 msgid "Title"
 msgstr ""
