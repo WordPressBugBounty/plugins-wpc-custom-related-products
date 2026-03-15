@@ -3,7 +3,7 @@
 Plugin Name: WPC Custom Related Products for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Custom Related Products allows you to choose custom related products for each product.
-Version: 3.2.2
+Version: 3.2.3
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-custom-related-products
@@ -12,14 +12,14 @@ Requires Plugins: woocommerce
 Requires at least: 4.0
 Tested up to: 6.9
 WC requires at least: 3.0
-WC tested up to: 10.4
+WC tested up to: 10.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOCR_VERSION' ) && define( 'WOOCR_VERSION', '3.2.2' );
+! defined( 'WOOCR_VERSION' ) && define( 'WOOCR_VERSION', '3.2.3' );
 ! defined( 'WOOCR_LITE' ) && define( 'WOOCR_LITE', __FILE__ );
 ! defined( 'WOOCR_FILE' ) && define( 'WOOCR_FILE', __FILE__ );
 ! defined( 'WOOCR_URI' ) && define( 'WOOCR_URI', plugin_dir_url( __FILE__ ) );
@@ -30,6 +30,7 @@ defined( 'ABSPATH' ) || exit;
 ! defined( 'WOOCR_DISCUSSION' ) && define( 'WOOCR_DISCUSSION', 'https://wordpress.org/support/plugin/wpc-custom-related-products' );
 ! defined( 'WPC_URI' ) && define( 'WPC_URI', WOOCR_URI );
 
+include 'includes/log/wpc-log.php';
 include 'includes/dashboard/wpc-dashboard.php';
 include 'includes/kit/wpc-kit.php';
 include 'includes/hpos.php';
@@ -67,6 +68,7 @@ if ( ! function_exists( 'woocr_init' ) ) {
 
                     // Settings
                     add_action( 'admin_init', [ $this, 'register_settings' ] );
+                    add_filter( 'pre_update_option', [ $this, 'last_saved' ], 10, 2 );
                     add_action( 'admin_menu', [ $this, 'admin_menu' ] );
 
                     // Enqueue backend scripts
@@ -135,10 +137,24 @@ if ( ! function_exists( 'woocr_init' ) ) {
                             'type'              => 'array',
                             'sanitize_callback' => [ $this, 'sanitize_array' ],
                     ] );
+                    // rules
+                    register_setting( 'woocr_rules', 'woocr_rules_settings', [
+                            'type'              => 'array',
+                            'sanitize_callback' => [ $this, 'sanitize_array' ],
+                    ] );
                     register_setting( 'woocr_rules', 'woocr_rules', [
                             'type'              => 'array',
                             'sanitize_callback' => [ $this, 'sanitize_array' ],
                     ] );
+                }
+
+                function last_saved( $value, $option ) {
+                    if ( $option == 'woocr_settings' || $option == 'woocr_rules_settings' ) {
+                        $value['_last_saved']    = current_time( 'timestamp' );
+                        $value['_last_saved_by'] = get_current_user_id();
+                    }
+
+                    return $value;
                 }
 
                 function admin_menu() {
@@ -322,7 +338,16 @@ if ( ! function_exists( 'woocr_init' ) ) {
                                         </tr>
                                         <tr class="submit">
                                             <th colspan="2">
-                                                <?php settings_fields( 'woocr_settings' ); ?><?php submit_button(); ?>
+                                                <div class="wpclever_submit">
+                                                    <?php
+                                                    settings_fields( 'woocr_settings' );
+                                                    submit_button( '', 'primary', 'submit', false );
+
+                                                    if ( function_exists( 'wpc_last_saved' ) ) {
+                                                        wpc_last_saved( self::get_settings() );
+                                                    }
+                                                    ?>
+                                                </div>
                                                 <a style="display: none;" class="wpclever_export"
                                                    data-key="woocr_settings"
                                                    data-name="settings"
@@ -409,7 +434,18 @@ if ( ! function_exists( 'woocr_init' ) ) {
                             </tr>
                             <tr class="submit">
                                 <th colspan="2">
-                                    <?php settings_fields( $name ); ?><?php submit_button(); ?>
+                                    <div class="wpclever_submit">
+                                        <?php
+                                        $log = $name . '_settings';
+                                        echo '<input type="hidden" name="' . $log . '[version]" value="' . esc_attr( WOOCR_VERSION ) . '"/>';
+                                        settings_fields( $name );
+                                        submit_button( '', 'primary', 'submit', false );
+
+                                        if ( function_exists( 'wpc_last_saved' ) ) {
+                                            wpc_last_saved( get_option( $log, [] ) );
+                                        }
+                                        ?>
+                                    </div>
                                     <a style="display: none;" class="wpclever_export"
                                        data-key="woocr_rules"
                                        data-name="rules"

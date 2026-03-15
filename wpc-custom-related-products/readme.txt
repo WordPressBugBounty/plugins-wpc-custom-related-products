@@ -3,8 +3,8 @@ Contributors: wpclever
 Donate link: https://wpclever.net
 Tags: woocommerce, wpc, related, custom related
 Tested up to: 6.9
-Version: 3.2.2
-Stable tag: 3.2.2
+Version: 3.2.3
+Stable tag: 3.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,6 +42,10 @@ Please try other plugins from us:
 4. Now when creating/editing the product, please choose "Related Product" tab then you can search and add custom related products
 
 == Changelog ==
+
+= 3.2.3 =
+* Fixed: Minor JS/CSS issues in the backend
+* Updated: Compatible with WP 6.9 & Woo 10.6
 
 = 3.2.2 =
 * Updated: Optimized the code
