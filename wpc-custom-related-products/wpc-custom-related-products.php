@@ -3,23 +3,23 @@
 Plugin Name: WPC Custom Related Products for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Custom Related Products allows you to choose custom related products for each product.
-Version: 3.2.3
+Version: 3.2.4
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-custom-related-products
 Domain Path: /languages/
 Requires Plugins: woocommerce
 Requires at least: 4.0
-Tested up to: 6.9
+Tested up to: 7.0
 WC requires at least: 3.0
-WC tested up to: 10.6
+WC tested up to: 10.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOCR_VERSION' ) && define( 'WOOCR_VERSION', '3.2.3' );
+! defined( 'WOOCR_VERSION' ) && define( 'WOOCR_VERSION', '3.2.4' );
 ! defined( 'WOOCR_LITE' ) && define( 'WOOCR_LITE', __FILE__ );
 ! defined( 'WOOCR_FILE' ) && define( 'WOOCR_FILE', __FILE__ );
 ! defined( 'WOOCR_URI' ) && define( 'WOOCR_URI', plugin_dir_url( __FILE__ ) );
@@ -28,12 +28,14 @@ defined( 'ABSPATH' ) || exit;
 ! defined( 'WOOCR_REVIEWS' ) && define( 'WOOCR_REVIEWS', 'https://wordpress.org/support/plugin/wpc-custom-related-products/reviews/' );
 ! defined( 'WOOCR_CHANGELOG' ) && define( 'WOOCR_CHANGELOG', 'https://wordpress.org/plugins/wpc-custom-related-products/#developers' );
 ! defined( 'WOOCR_DISCUSSION' ) && define( 'WOOCR_DISCUSSION', 'https://wordpress.org/support/plugin/wpc-custom-related-products' );
-! defined( 'WPC_URI' ) && define( 'WPC_URI', WOOCR_URI );
 
-include 'includes/log/wpc-log.php';
-include 'includes/dashboard/wpc-dashboard.php';
-include 'includes/kit/wpc-kit.php';
-include 'includes/hpos.php';
+// WPC Core
+require_once __DIR__ . '/includes/wpc-core/wpc-core.php';
+wpc_core_register( [
+	'file'    => __FILE__,
+	'version' => WOOCR_VERSION,
+	'prefix'  => 'woocr',
+] );
 
 if ( ! function_exists( 'woocr_init' ) ) {
     add_action( 'plugins_loaded', 'woocr_init', 11 );
@@ -165,7 +167,7 @@ if ( ! function_exists( 'woocr_init' ) ) {
                 }
 
                 function admin_menu_content() {
-                    $active_tab = sanitize_key( $_GET['tab'] ?? 'settings' );
+                    $active_tab = sanitize_key( wp_unslash( $_GET['tab'] ?? 'settings' ) );
                     ?>
                     <div class="wpclever_settings_page wrap">
                         <div class="wpclever_settings_page_header">
@@ -190,7 +192,7 @@ if ( ! function_exists( 'woocr_init' ) ) {
                             </div>
                         </div>
                         <h2></h2>
-                        <?php if ( isset( $_GET['settings-updated'] ) && $_GET['settings-updated'] ) { ?>
+                        <?php if ( isset( $_GET['settings-updated'] ) && sanitize_key( wp_unslash( $_GET['settings-updated'] ) ) ) { ?>
                             <div class="notice notice-success is-dismissible">
                                 <p><?php esc_html_e( 'Settings updated.', 'wpc-custom-related-products' ); ?></p>
                             </div>
@@ -437,7 +439,7 @@ if ( ! function_exists( 'woocr_init' ) ) {
                                     <div class="wpclever_submit">
                                         <?php
                                         $log = $name . '_settings';
-                                        echo '<input type="hidden" name="' . $log . '[version]" value="' . esc_attr( WOOCR_VERSION ) . '"/>';
+                                        echo '<input type="hidden" name="' . esc_attr( $log ) . '[version]" value="' . esc_attr( WOOCR_VERSION ) . '"/>';
                                         settings_fields( $name );
                                         submit_button( '', 'primary', 'submit', false );
 
@@ -601,13 +603,13 @@ if ( ! function_exists( 'woocr_init' ) ) {
                 }
 
                 function ajax_add_rule() {
-                    if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'woocr_nonce' ) ) {
+                    if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'woocr_nonce' ) || ! current_user_can( 'edit_products' ) ) {
                         die( 'Permissions check failed!' );
                     }
 
                     $rule      = [];
-                    $name      = sanitize_key( $_POST['name'] ?? 'woocr_rules' );
-                    $rule_data = $_POST['rule_data'] ?? '';
+                    $name      = sanitize_key( wp_unslash( $_POST['name'] ?? 'woocr_rules' ) );
+                    $rule_data = isset( $_POST['rule_data'] ) ? sanitize_text_field( wp_unslash( $_POST['rule_data'] ) ) : '';
 
                     if ( ! empty( $rule_data ) ) {
                         $form_rule = [];
@@ -623,15 +625,19 @@ if ( ! function_exists( 'woocr_init' ) ) {
                 }
 
                 function ajax_search_term() {
+                    if ( ! isset( $_REQUEST['nonce'] ) || ! wp_verify_nonce( sanitize_key( $_REQUEST['nonce'] ), 'woocr_nonce' ) || ! current_user_can( 'edit_products' ) ) {
+                        die( 'Permissions check failed!' );
+                    }
+
                     $return = [];
 
                     $args = [
-                            'taxonomy'   => sanitize_text_field( $_REQUEST['taxonomy'] ),
+                            'taxonomy'   => isset( $_REQUEST['taxonomy'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['taxonomy'] ) ) : '',
                             'orderby'    => 'id',
                             'order'      => 'ASC',
                             'hide_empty' => false,
                             'fields'     => 'all',
-                            'name__like' => sanitize_text_field( $_REQUEST['q'] ),
+                            'name__like' => isset( $_REQUEST['q'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['q'] ) ) : '',
                     ];
 
                     $terms = get_terms( $args );
@@ -700,8 +706,12 @@ if ( ! function_exists( 'woocr_init' ) ) {
                 }
 
                 function ajax_get_search_results() {
-                    $keyword = sanitize_text_field( $_POST['keyword'] );
-                    $ids     = ! empty( $_POST['ids'] ) ? (array) $_POST['ids'] : [];
+                    if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'woocr_nonce' ) || ! current_user_can( 'edit_products' ) ) {
+                        die( 'Permissions check failed!' );
+                    }
+
+                    $keyword = isset( $_POST['keyword'] ) ? sanitize_text_field( wp_unslash( $_POST['keyword'] ) ) : '';
+                    $ids     = ! empty( $_POST['ids'] ) ? array_map( 'absint', wp_unslash( $_POST['ids'] ) ) : [];
 
                     if ( ( self::get_setting( 'search_id', 'no' ) === 'yes' ) && is_numeric( $keyword ) ) {
                         // search by id
@@ -740,7 +750,7 @@ if ( ! function_exists( 'woocr_init' ) ) {
 
                         wp_reset_postdata();
                     } else {
-                        echo '<ul><span>' . sprintf( /* translators: keyword */ esc_html__( 'No results found for "%s"', 'wpc-custom-related-products' ), $keyword ) . '</span></ul>';
+                        echo '<ul><span>' . sprintf( /* translators: keyword */ esc_html__( 'No results found for "%s"', 'wpc-custom-related-products' ), esc_html( $keyword ) ) . '</span></ul>';
                     }
 
                     wp_die();
@@ -761,7 +771,7 @@ if ( ! function_exists( 'woocr_init' ) ) {
                         $edit_link = get_edit_post_link( $product_id );
                     }
 
-                    echo '<li ' . ( ! $product->is_in_stock() ? 'class="out-of-stock"' : '' ) . '><span class="move"></span><span class="name"><input type="hidden" ' . ( ! $search ? 'name="woocr_ids[]"' : '' ) . ' value="' . esc_attr( $product_id ) . '"/>' . $product->get_name() . ' <span class="price">' . $product->get_price_html() . '</span></span><span class="type"><a target="_blank" href="' . esc_url( $edit_link ) . '">' . $product->get_type() . '<br/>#' . $product->get_id() . '</a></span>' . $remove_btn . '</li>';
+                    echo '<li ' . ( ! $product->is_in_stock() ? 'class="out-of-stock"' : '' ) . '><span class="move"></span><span class="name"><input type="hidden" ' . ( ! $search ? 'name="woocr_ids[]"' : '' ) . ' value="' . esc_attr( $product_id ) . '"/>' . esc_html( $product->get_name() ) . ' <span class="price">' . wp_kses_post( $product->get_price_html() ) . '</span></span><span class="type"><a target="_blank" href="' . esc_url( $edit_link ) . '">' . esc_html( $product->get_type() ) . '<br/>#' . esc_html( $product->get_id() ) . '</a></span>' . wp_kses_post( $remove_btn ) . '</li>';
                 }
 
                 function product_data_tabs( $tabs ) {
@@ -870,18 +880,22 @@ if ( ! function_exists( 'woocr_init' ) ) {
                 }
 
                 function process_product_meta( $post_id ) {
+                    if ( ! isset( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['woocommerce_meta_nonce'] ), 'woocommerce_save_data' ) || ! current_user_can( 'edit_post', $post_id ) ) {
+                        return;
+                    }
+
                     if ( isset( $_POST['woocr_ids'] ) ) {
-                        update_post_meta( $post_id, 'woocr_ids', array_map( 'sanitize_key', $_POST['woocr_ids'] ) );
+                        update_post_meta( $post_id, 'woocr_ids', array_map( 'sanitize_key', wp_unslash( $_POST['woocr_ids'] ) ) );
                     } else {
                         delete_post_meta( $post_id, 'woocr_ids' );
                     }
 
                     if ( isset( $_POST['woocr_orderby'] ) ) {
-                        update_post_meta( $post_id, 'woocr_orderby', sanitize_key( $_POST['woocr_orderby'] ) );
+                        update_post_meta( $post_id, 'woocr_orderby', sanitize_key( wp_unslash( $_POST['woocr_orderby'] ) ) );
                     }
 
                     if ( isset( $_POST['woocr_order'] ) ) {
-                        update_post_meta( $post_id, 'woocr_order', sanitize_key( $_POST['woocr_order'] ) );
+                        update_post_meta( $post_id, 'woocr_order', sanitize_key( wp_unslash( $_POST['woocr_order'] ) ) );
                     }
                 }
 

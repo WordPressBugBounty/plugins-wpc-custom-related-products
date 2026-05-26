@@ -76,6 +76,7 @@
 
     var data = {
       action: 'woocr_get_search_results',
+      nonce: woocr_vars.woocr_nonce,
       keyword: $('#woocr_keyword').val(),
       ids: ids,
     };
@@ -233,7 +234,7 @@
         ajax: {
           url: ajaxurl, dataType: 'json', delay: 250, data: function(params) {
             return {
-              q: params.term, action: 'woocr_search_term', taxonomy: apply,
+              q: params.term, action: 'woocr_search_term', taxonomy: apply, nonce: woocr_vars.woocr_nonce,
             };
           }, processResults: function(data) {
             var options = [];
@@ -271,7 +272,7 @@
         ajax: {
           url: ajaxurl, dataType: 'json', delay: 250, data: function(params) {
             return {
-              q: params.term, action: 'woocr_search_term', taxonomy: taxonomy,
+              q: params.term, action: 'woocr_search_term', taxonomy: taxonomy, nonce: woocr_vars.woocr_nonce,
             };
           }, processResults: function(data) {
             var options = [];
