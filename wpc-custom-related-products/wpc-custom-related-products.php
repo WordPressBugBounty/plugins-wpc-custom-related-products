@@ -3,23 +3,23 @@
 Plugin Name: WPC Custom Related Products for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Custom Related Products allows you to choose custom related products for each product.
-Version: 3.2.4
+Version: 3.2.5
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-custom-related-products
 Domain Path: /languages/
 Requires Plugins: woocommerce
-Requires at least: 4.0
+Requires at least: 5.9
 Tested up to: 7.0
 WC requires at least: 3.0
-WC tested up to: 10.7
+WC tested up to: 10.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOCR_VERSION' ) && define( 'WOOCR_VERSION', '3.2.4' );
+! defined( 'WOOCR_VERSION' ) && define( 'WOOCR_VERSION', '3.2.5' );
 ! defined( 'WOOCR_LITE' ) && define( 'WOOCR_LITE', __FILE__ );
 ! defined( 'WOOCR_FILE' ) && define( 'WOOCR_FILE', __FILE__ );
 ! defined( 'WOOCR_URI' ) && define( 'WOOCR_URI', plugin_dir_url( __FILE__ ) );
@@ -66,7 +66,6 @@ if ( ! function_exists( 'woocr_init' ) ) {
                     self::$rules    = (array) get_option( 'woocr_rules', [] );
 
                     // Init
-                    add_action( 'init', [ $this, 'init' ] );
 
                     // Settings
                     add_action( 'admin_init', [ $this, 'register_settings' ] );
@@ -113,12 +112,6 @@ if ( ! function_exists( 'woocr_init' ) ) {
                         add_action( 'pre_get_posts', [ $this, 'search_sentence' ], 99 );
                     }
                 }
-
-                function init() {
-                    // load text-domain
-                    load_plugin_textdomain( 'wpc-custom-related-products', false, basename( WOOCR_DIR ) . '/languages/' );
-                }
-
                 public static function get_settings() {
                     return apply_filters( 'woocr_get_settings', self::$settings );
                 }
@@ -192,7 +185,7 @@ if ( ! function_exists( 'woocr_init' ) ) {
                             </div>
                         </div>
                         <h2></h2>
-                        <?php if ( isset( $_GET['settings-updated'] ) && sanitize_key( wp_unslash( $_GET['settings-updated'] ) ) ) { ?>
+                        <?php if ( isset( $_GET['settings-updated'] ) && sanitize_key( wp_unslash( $_GET['settings-updated'] ?? '' ) ) ) { ?>
                             <div class="notice notice-success is-dismissible">
                                 <p><?php esc_html_e( 'Settings updated.', 'wpc-custom-related-products' ); ?></p>
                             </div>
@@ -603,13 +596,13 @@ if ( ! function_exists( 'woocr_init' ) ) {
                 }
 
                 function ajax_add_rule() {
-                    if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'woocr_nonce' ) || ! current_user_can( 'edit_products' ) ) {
+                    if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['nonce'] ) ), 'woocr_nonce' ) || ! current_user_can( 'edit_products' ) ) {
                         die( 'Permissions check failed!' );
                     }
 
                     $rule      = [];
                     $name      = sanitize_key( wp_unslash( $_POST['name'] ?? 'woocr_rules' ) );
-                    $rule_data = isset( $_POST['rule_data'] ) ? sanitize_text_field( wp_unslash( $_POST['rule_data'] ) ) : '';
+                    $rule_data = isset( $_POST['rule_data'] ) ? sanitize_text_field( wp_unslash( $_POST['rule_data'] ?? '' ) ) : '';
 
                     if ( ! empty( $rule_data ) ) {
                         $form_rule = [];
@@ -625,19 +618,19 @@ if ( ! function_exists( 'woocr_init' ) ) {
                 }
 
                 function ajax_search_term() {
-                    if ( ! isset( $_REQUEST['nonce'] ) || ! wp_verify_nonce( sanitize_key( $_REQUEST['nonce'] ), 'woocr_nonce' ) || ! current_user_can( 'edit_products' ) ) {
+                    if ( ! isset( $_REQUEST['nonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_REQUEST['nonce'] ) ), 'woocr_nonce' ) || ! current_user_can( 'edit_products' ) ) {
                         die( 'Permissions check failed!' );
                     }
 
                     $return = [];
 
                     $args = [
-                            'taxonomy'   => isset( $_REQUEST['taxonomy'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['taxonomy'] ) ) : '',
+                            'taxonomy'   => isset( $_REQUEST['taxonomy'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['taxonomy'] ?? '' ) ) : '',
                             'orderby'    => 'id',
                             'order'      => 'ASC',
                             'hide_empty' => false,
                             'fields'     => 'all',
-                            'name__like' => isset( $_REQUEST['q'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['q'] ) ) : '',
+                            'name__like' => isset( $_REQUEST['q'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['q'] ?? '' ) ) : '',
                     ];
 
                     $terms = get_terms( $args );
@@ -656,7 +649,7 @@ if ( ! function_exists( 'woocr_init' ) ) {
                         return null;
                     }
 
-                    wp_enqueue_style( 'hint', WOOCR_URI . 'assets/css/hint.css' );
+                    wp_enqueue_style( 'hint', WOOCR_URI . 'assets/css/hint.css', [], WOOCR_VERSION );
                     wp_enqueue_style( 'woocr-backend', WOOCR_URI . 'assets/css/backend.css', [ 'woocommerce_admin_styles' ], WOOCR_VERSION );
                     wp_enqueue_script( 'woocr-backend', WOOCR_URI . 'assets/js/backend.js', [
                             'jquery',
@@ -706,12 +699,12 @@ if ( ! function_exists( 'woocr_init' ) ) {
                 }
 
                 function ajax_get_search_results() {
-                    if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ), 'woocr_nonce' ) || ! current_user_can( 'edit_products' ) ) {
+                    if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['nonce'] ) ), 'woocr_nonce' ) || ! current_user_can( 'edit_products' ) ) {
                         die( 'Permissions check failed!' );
                     }
 
-                    $keyword = isset( $_POST['keyword'] ) ? sanitize_text_field( wp_unslash( $_POST['keyword'] ) ) : '';
-                    $ids     = ! empty( $_POST['ids'] ) ? array_map( 'absint', wp_unslash( $_POST['ids'] ) ) : [];
+                    $keyword = isset( $_POST['keyword'] ) ? sanitize_text_field( wp_unslash( $_POST['keyword'] ?? '' ) ) : '';
+                    $ids     = ! empty( $_POST['ids'] ) ? array_map( 'absint', wp_unslash( $_POST['ids'] ?? [] ) ) : [];
 
                     if ( ( self::get_setting( 'search_id', 'no' ) === 'yes' ) && is_numeric( $keyword ) ) {
                         // search by id
@@ -880,22 +873,22 @@ if ( ! function_exists( 'woocr_init' ) ) {
                 }
 
                 function process_product_meta( $post_id ) {
-                    if ( ! isset( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['woocommerce_meta_nonce'] ), 'woocommerce_save_data' ) || ! current_user_can( 'edit_post', $post_id ) ) {
+                    if ( ! isset( $_POST['woocommerce_meta_nonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['woocommerce_meta_nonce'] ) ), 'woocommerce_save_data' ) || ! current_user_can( 'edit_post', $post_id ) ) {
                         return;
                     }
 
                     if ( isset( $_POST['woocr_ids'] ) ) {
-                        update_post_meta( $post_id, 'woocr_ids', array_map( 'sanitize_key', wp_unslash( $_POST['woocr_ids'] ) ) );
+                        update_post_meta( $post_id, 'woocr_ids', array_map( 'sanitize_key', wp_unslash( $_POST['woocr_ids'] ?? [] ) ) );
                     } else {
                         delete_post_meta( $post_id, 'woocr_ids' );
                     }
 
                     if ( isset( $_POST['woocr_orderby'] ) ) {
-                        update_post_meta( $post_id, 'woocr_orderby', sanitize_key( wp_unslash( $_POST['woocr_orderby'] ) ) );
+                        update_post_meta( $post_id, 'woocr_orderby', sanitize_key( wp_unslash( $_POST['woocr_orderby'] ?? '' ) ) );
                     }
 
                     if ( isset( $_POST['woocr_order'] ) ) {
-                        update_post_meta( $post_id, 'woocr_order', sanitize_key( wp_unslash( $_POST['woocr_order'] ) ) );
+                        update_post_meta( $post_id, 'woocr_order', sanitize_key( wp_unslash( $_POST['woocr_order'] ?? '' ) ) );
                     }
                 }
 
