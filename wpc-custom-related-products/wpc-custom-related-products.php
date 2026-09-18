@@ -3,28 +3,27 @@
 Plugin Name: WPC Custom Related Products for WooCommerce
 Plugin URI: https://wpclever.net/
 Description: WPC Custom Related Products allows you to choose custom related products for each product.
-Version: 3.2.6
 Author: WPClever
 Author URI: https://wpclever.net
 Text Domain: wpc-custom-related-products
 Domain Path: /languages/
 Requires Plugins: woocommerce
+Version: 3.2.7
 Requires at least: 5.9
-Tested up to: 7.0
 WC requires at least: 3.0
-WC tested up to: 10.9
+WC tested up to: 11.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined( 'ABSPATH' ) || exit;
 
-! defined( 'WOOCR_VERSION' ) && define( 'WOOCR_VERSION', '3.2.6' );
+! defined( 'WOOCR_VERSION' ) && define( 'WOOCR_VERSION', '3.2.7' );
 ! defined( 'WOOCR_LITE' ) && define( 'WOOCR_LITE', __FILE__ );
 ! defined( 'WOOCR_FILE' ) && define( 'WOOCR_FILE', __FILE__ );
 ! defined( 'WOOCR_URI' ) && define( 'WOOCR_URI', plugin_dir_url( __FILE__ ) );
 ! defined( 'WOOCR_DIR' ) && define( 'WOOCR_DIR', plugin_dir_path( __FILE__ ) );
-! defined( 'WOOCR_SUPPORT' ) && define( 'WOOCR_SUPPORT', 'https://wpclever.net/support?utm_source=support&utm_medium=woocr&utm_campaign=wporg' );
+! defined( 'WOOCR_SUPPORT' ) && define( 'WOOCR_SUPPORT', 'https://wpclever.net/support/?utm_source=support&utm_medium=woocr&utm_campaign=wporg' );
 ! defined( 'WOOCR_REVIEWS' ) && define( 'WOOCR_REVIEWS', 'https://wordpress.org/support/plugin/wpc-custom-related-products/reviews/' );
 ! defined( 'WOOCR_CHANGELOG' ) && define( 'WOOCR_CHANGELOG', 'https://wordpress.org/plugins/wpc-custom-related-products/#developers' );
 ! defined( 'WOOCR_DISCUSSION' ) && define( 'WOOCR_DISCUSSION', 'https://wordpress.org/support/plugin/wpc-custom-related-products' );
